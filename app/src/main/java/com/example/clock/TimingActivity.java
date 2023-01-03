@@ -33,7 +33,7 @@ public class TimingActivity extends AppCompatActivity {
     private Chronometer chronometer;
     private Button btn_start,btn_Reset,settime,btn_picker;
     private EditText etmin,etsec;
-    private TextView tv;
+    private TextView tv,minsec;
     private Boolean timing_flag = true;
 
     //////////////////
@@ -97,25 +97,33 @@ public class TimingActivity extends AppCompatActivity {
         etsec = findViewById(R.id.etsec);
         btn_picker =findViewById(R.id.picker);
         tv =findViewById(R.id.textView4);
+        minsec = findViewById(R.id.minsec);
+
 
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (timing_flag){
-                    chronometer.start();
-                    btn_start.setText("暫停");
-                    timing_flag =false;
-                    settime.setVisibility(View.INVISIBLE);
-                    etmin.setVisibility(View.INVISIBLE);
-                    etsec.setVisibility(View.INVISIBLE);
-                    tv.setVisibility(View.INVISIBLE);
-                    btn_picker.setVisibility(View.INVISIBLE);
-                    btn_Reset.setVisibility(View.VISIBLE);
-                }else {
-                    chronometer.stop();
-                    btn_start.setText("繼續");
-                    timing_flag =true;
+                if (Durtime==0){
+                    Toast.makeText(TimingActivity.this,"請輸入時間",Toast.LENGTH_SHORT).show();
+                }else{
+                    if (timing_flag){
+                        chronometer.start();
+                        btn_start.setText("暫停");
+                        timing_flag =false;
+                        settime.setVisibility(View.INVISIBLE);
+                        etmin.setVisibility(View.INVISIBLE);
+                        etsec.setVisibility(View.INVISIBLE);
+                        tv.setVisibility(View.INVISIBLE);
+                        btn_picker.setVisibility(View.INVISIBLE);
+                        btn_Reset.setVisibility(View.VISIBLE);
+                        minsec.setVisibility(View.INVISIBLE);
+                    }else {
+                        chronometer.stop();
+                        btn_start.setText("繼續");
+                        timing_flag =true;
+                    }
                 }
+
             }
         });
         btn_Reset.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +142,7 @@ public class TimingActivity extends AppCompatActivity {
                 tv.setVisibility(View.VISIBLE);
                 btn_picker.setVisibility(View.VISIBLE);
                 btn_Reset.setVisibility(View.INVISIBLE);
+                minsec.setVisibility(View.VISIBLE);
             }
         });
 
@@ -143,9 +152,13 @@ public class TimingActivity extends AppCompatActivity {
                 minute = Integer.parseInt(etmin.getText().toString());
                 second = Integer.parseInt(etsec.getText().toString());
                 Durtime = minute*60 + second;
-                leftTime = Durtime;
-                setChronometerText();
-                chronometer.stop();
+                if(Durtime==0){
+                    Toast.makeText(TimingActivity.this,"請輸入時間",Toast.LENGTH_SHORT).show();
+                }else {
+                    leftTime = Durtime;
+                    setChronometerText();
+                    chronometer.stop();
+                }
             }
         });
         chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {

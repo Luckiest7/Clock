@@ -82,7 +82,7 @@
         android:ems="10"
         android:inputType="numberDecimal"
         android:maxLength="2"
-        android:text="5"
+        android:text="0"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="@+id/etmin"
         app:layout_constraintStart_toEndOf="@+id/textView4"
