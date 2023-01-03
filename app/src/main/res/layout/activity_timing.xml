@@ -6,25 +6,157 @@
     android:layout_height="match_parent"
     tools:context=".TimingActivity">
 
+    <TextView
+        android:id="@+id/labol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="倒數計時器"
+        android:textColor="@color/material_dynamic_primary50"
+        android:textSize="30dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Chronometer
+        android:id="@+id/chronometer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:countDown="true"
+        android:gravity="center"
+        android:textColor="#ccaa00"
+        android:textSize="100dp"
+        app:layout_constraintTop_toBottomOf="@+id/labol"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_weight="1"
+        android:text="開始"
+        app:layout_constraintEnd_toStartOf="@+id/btnReset"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chronometer" />
+
+    <Button
+        android:id="@+id/btnReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_weight="1"
+        android:text="重設"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnStart"
+        app:layout_constraintTop_toBottomOf="@+id/chronometer" />
+
+    <Button
+        android:id="@+id/picker"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:onClick="picker"
+        android:text="圖形\n設定"
+        app:layout_constraintBottom_toBottomOf="@+id/settime"
+        app:layout_constraintEnd_toEndOf="@+id/btnReset"
+        app:layout_constraintHorizontal_bias="0.622"
+        app:layout_constraintStart_toStartOf="@+id/btnReset" />
+
+    <EditText
+        android:id="@+id/etmin"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:ems="10"
+        android:gravity="right"
+        android:inputType="numberDecimal"
+        android:maxLength="2"
+        android:text="0"
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="@+id/btnStart"
+        app:layout_constraintTop_toBottomOf="@+id/btnStart" />
+
+    <EditText
+        android:id="@+id/etsec"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:maxLength="2"
+        android:text="5"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/etmin"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="@+id/etmin" />
+
+    <Button
+        android:id="@+id/settime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="設定"
+        app:layout_constraintEnd_toEndOf="@+id/etsec"
+        app:layout_constraintStart_toStartOf="@+id/etmin"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
     <Button
         android:id="@+id/btn_main4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/teal_700"
         android:minWidth="20dp"
         android:text="首頁"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_alarm4"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_alarm4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="20dp"
+        android:text="鬧鐘"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_stopwatch4"
+        app:layout_constraintStart_toEndOf="@+id/btn_main4" />
+
+    <Button
+        android:id="@+id/btn_stopwatch4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="20dp"
+        android:text="碼表"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_timing4"
+        app:layout_constraintStart_toEndOf="@+id/btn_alarm4" />
+
+    <Button
+        android:id="@+id/btn_timing4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:minWidth="20dp"
+        android:text="計時"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_stopwatch4" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="計時"
-        android:textSize="22dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="8dp"
+        android:text=":"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/etmin"
+        app:layout_constraintStart_toEndOf="@+id/etmin"
+        app:layout_constraintTop_toTopOf="@+id/etmin" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

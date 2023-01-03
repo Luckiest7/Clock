@@ -19,7 +19,7 @@ public class StopwatchActivity extends AppCompatActivity {
     private Button btn_zero;
     private TextView tv_one;
 
-    private Button btn_main;
+    private Button btn_main,btn_alarm,btn_timing; //切換頁面按鈕宣告
 
     private Boolean flag =false;
     private Bundle b;
@@ -45,8 +45,6 @@ public class StopwatchActivity extends AppCompatActivity {
         btn_start =findViewById(R.id.btn_start);
         btn_zero =findViewById(R.id.btn_zero);
         tv_one =findViewById(R.id.tv_one);
-
-        btn_main =findViewById(R.id.btn_main3);
 
         registerReceiver(receiver,new IntentFilter("MyMessage"));
         tv_one.setMovementMethod(new ScrollingMovementMethod());
@@ -112,6 +110,8 @@ public class StopwatchActivity extends AppCompatActivity {
             }
         });
 
+        //切換首頁頁面
+        btn_main =findViewById(R.id.btn_main3);
         btn_main.setOnClickListener( v -> {
             Intent intent =new Intent(StopwatchActivity.this,MainActivity.class);
             startActivity(intent);
@@ -119,7 +119,18 @@ public class StopwatchActivity extends AppCompatActivity {
                 btn_start.callOnClick();
             btn_zero.callOnClick();
         });
-
+        //切換鬧鐘頁面
+        btn_alarm =findViewById(R.id.btn_alarm3);
+        btn_alarm.setOnClickListener( v -> {
+            Intent intent =new Intent(this,AlarmActivity.class);
+            startActivity(intent);
+        });
+        //切換計時頁面
+        btn_timing =findViewById(R.id.btn_timing3);
+        btn_timing.setOnClickListener( v -> {
+            Intent intent =new Intent(this,TimingActivity.class);
+            startActivity(intent);
+        });
     }
 
     public void onDestory(){
