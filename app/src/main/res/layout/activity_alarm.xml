@@ -7,14 +7,52 @@
     tools:context=".AlarmActivity">
 
     <Button
+        android:id="@+id/btn_stopwatch2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="20dp"
+        android:text="碼表"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_timing2"
+        app:layout_constraintStart_toEndOf="@+id/btn_alarm2" />
+
+    <Button
+        android:id="@+id/btn_timing2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/teal_700"
+        android:minWidth="20dp"
+        android:text="計時"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_stopwatch2" />
+
+    <Button
+        android:id="@+id/btn_alarm2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:minWidth="20dp"
+        android:text="鬧鐘"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_stopwatch2"
+        app:layout_constraintStart_toEndOf="@+id/btn_main2" />
+
+    <Button
         android:id="@+id/btn_main2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/teal_700"
         android:minWidth="20dp"
         android:text="首頁"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_alarm2"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -38,34 +76,49 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
+
     <Button
         android:id="@+id/set_alarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="設定鬧鐘"
         android:layout_gravity="center_horizontal"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginTop="24dp"
+        android:text="設定鬧鐘"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-
-        app:layout_constraintTop_toBottomOf="@+id/time"
-        android:layout_marginTop="20dp"
-
-        />
-
+        app:layout_constraintTop_toBottomOf="@+id/ed_message" />
     <Button
-        android:id="@+id/exit"
+        android:id="@+id/btn_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Exit"
-
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:text="取消鬧鐘"
         app:layout_constraintTop_toBottomOf="@+id/set_alarm"
-        />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
+    <EditText
+        android:id="@+id/ed_message"
+        android:layout_width="135dp"
+        android:layout_height="44dp"
+        android:ems="20"
+        android:hint="輸入提醒事項"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="標籤"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

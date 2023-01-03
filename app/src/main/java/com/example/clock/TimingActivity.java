@@ -1,15 +1,14 @@
 package com.example.clock;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -18,20 +17,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.media.MediaPlayer;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TimingActivity extends AppCompatActivity {
-    private Button btn_main;
+    private Button btn_main,btn_alarm,btn_stopwatch;//切換頁面按鈕宣告
     static long Durtime;
     private long leftTime = Durtime;
     private Chronometer chronometer;
-    private Button btn_start,btn_base,settime,btn_stop;
+    private Button btn_start,btn_Reset,settime,btn_picker;
     private EditText etmin,etsec;
+    private TextView tv;
+    private Boolean timing_flag = true;
 
     //////////////////
     private TimePickerDialog timePickerDialog;
@@ -40,12 +43,8 @@ public class TimingActivity extends AppCompatActivity {
     int second;
     int minute;
 
-    private static void playRing(Context context) {
-        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        Ringtone rt = RingtoneManager.getRingtone(context, uri);
-        rt.play();}
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+   @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,10 +61,26 @@ public class TimingActivity extends AppCompatActivity {
                 setChronometerText();
             }
         };
+
+        //切換首頁頁面
         btn_main.setOnClickListener( v -> {
             Intent intent =new Intent(TimingActivity.this,MainActivity.class);
             startActivity(intent);
         });
+        //切換鬧鐘頁面
+        btn_alarm =findViewById(R.id.btn_alarm4);
+        btn_alarm.setOnClickListener( v -> {
+            Intent intent =new Intent(this,AlarmActivity.class);
+            startActivity(intent);
+        });
+        //切換碼表頁面
+        btn_stopwatch =findViewById(R.id.btn_stopwatch4);
+        btn_stopwatch.setOnClickListener( v -> {
+            Intent intent =new Intent(this,StopwatchActivity.class);
+            startActivity(intent);
+        });
+
+
     }
     public void picker(View view) {
         timePickerDialog = new TimePickerDialog(this, onTimeSetListener, minute,second, true);
@@ -76,31 +91,50 @@ public class TimingActivity extends AppCompatActivity {
         chronometer = findViewById(R.id.chronometer);
         btn_main =findViewById(R.id.btn_main4);
         btn_start = findViewById(R.id.btnStart);
-        btn_base = findViewById(R.id.btnReset);
-        btn_stop = findViewById(R.id.btnStop);
+        btn_Reset = findViewById(R.id.btnReset);
         settime = findViewById(R.id.settime);
         etmin = findViewById(R.id.etmin);
         etsec = findViewById(R.id.etsec);
+        btn_picker =findViewById(R.id.picker);
+        tv =findViewById(R.id.textView4);
 
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                chronometer.start();
+                if (timing_flag){
+                    chronometer.start();
+                    btn_start.setText("暫停");
+                    timing_flag =false;
+
+                    settime.setVisibility(View.INVISIBLE);
+                    etmin.setVisibility(View.INVISIBLE);
+                    etsec.setVisibility(View.INVISIBLE);
+                    tv.setVisibility(View.INVISIBLE);
+                    btn_picker.setVisibility(View.INVISIBLE);
+                    btn_Reset.setVisibility(View.VISIBLE);
+                }else {
+                    chronometer.stop();
+                    btn_start.setText("繼續");
+                    timing_flag =true;
+                }
             }
         });
-        btn_base.setOnClickListener(new View.OnClickListener() {
+        btn_Reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 chronometer.stop();
                 chronometer.setBase(SystemClock.elapsedRealtime());
                 leftTime = Durtime;
                 setChronometerText();
-            }
-        });
-        btn_stop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                chronometer.stop();
+                btn_start.setText("開始");
+                timing_flag =true;
+
+                settime.setVisibility(View.VISIBLE);
+                etmin.setVisibility(View.VISIBLE);
+                etsec.setVisibility(View.VISIBLE);
+                tv.setVisibility(View.VISIBLE);
+                btn_picker.setVisibility(View.VISIBLE);
+                btn_Reset.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -121,12 +155,20 @@ public class TimingActivity extends AppCompatActivity {
                 leftTime--;
                 setChronometerText();
                 if(leftTime == 0 ){
+                    Alarm.mp.start();
+
                     Toast.makeText(TimingActivity.this,"時間到！",Toast.LENGTH_SHORT).show();
-
                     chronometer.stop();
+                    AlertDialog.Builder dialog =new AlertDialog.Builder(TimingActivity.this);
+                    dialog.setTitle("時間到了!");
 
-                    //預設提示聲
-
+                    dialog.setPositiveButton("關閉鬧鐘", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Alarm.mp.pause();
+                        }
+                    });
+                    dialog.show();
                     return;
                 }
             }
