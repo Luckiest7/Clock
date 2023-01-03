@@ -158,5 +158,14 @@
         app:layout_constraintStart_toEndOf="@+id/etmin"
         app:layout_constraintTop_toTopOf="@+id/etmin" />
 
+    <TextView
+        android:id="@+id/minsec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="     分       秒"
+        app:layout_constraintBottom_toTopOf="@+id/etmin"
+        app:layout_constraintStart_toStartOf="@+id/etmin"
+        app:layout_constraintTop_toTopOf="@+id/etmin" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

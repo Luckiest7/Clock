@@ -105,7 +105,6 @@ public class TimingActivity extends AppCompatActivity {
                     chronometer.start();
                     btn_start.setText("暫停");
                     timing_flag =false;
-
                     settime.setVisibility(View.INVISIBLE);
                     etmin.setVisibility(View.INVISIBLE);
                     etsec.setVisibility(View.INVISIBLE);
